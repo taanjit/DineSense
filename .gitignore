@@ -181,3 +181,5 @@ cython_debug/
 *.avi
 *.mkv
 
+# model file
+*.pt
