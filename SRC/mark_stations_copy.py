@@ -1,10 +1,16 @@
 import cv2
 import csv
 import time
+import json
 import numpy as np
 from ultralytics import YOLO
+import mediapipe as mp
 
 threshold = 150  # Distance threshold for detecting persons near stations
+
+# Initialize MediaPipe face detector
+mp_face_detection = mp.solutions.face_detection
+face_detector = mp_face_detection.FaceDetection(model_selection=1, min_detection_confidence=0.5)
 
 def resize_frame(frame, scale=0.6):
     return cv2.resize(frame, None, fx=scale, fy=scale, interpolation=cv2.INTER_AREA)
@@ -22,7 +28,7 @@ def read_unique_stations(file_path):
     return stations
 
 def detect_persons(frame, model):
-    results = model(frame)
+    results = model(frame,verbose=False)
     person_boxes = []
     for result in results:
         for box in result.boxes:
@@ -44,14 +50,15 @@ def classify_persons(person_boxes):
     return classified_persons
 
 def is_person_near_station(classified_persons, station_center, threshold=150):
+    count = 0
     for ((x1, y1, x2, y2), label) in classified_persons:
         if label == "Sitting Person":
             person_center = ((x1 + x2) // 2, (y1 + y2) // 2)
             distance = ((person_center[0] - station_center[0]) ** 2 +
                         (person_center[1] - station_center[1]) ** 2) ** 0.5
             if distance < threshold:
-                return True
-    return False
+                count += 1
+    return count
 
 def draw_hexagon(frame, center, radius, color, thickness):
     hexagon_points = []
@@ -63,6 +70,15 @@ def draw_hexagon(frame, center, radius, color, thickness):
         hexagon_points.append((x, y))
     hexagon_points = np.array([hexagon_points], np.int32)
     cv2.polylines(frame, [hexagon_points], isClosed=True, color=color, thickness=thickness)
+
+def detect_face_orientation(frame, box):
+    x1, y1, x2, y2 = box
+    person_roi = frame[y1:y2, x1:x2]
+    rgb_roi = cv2.cvtColor(person_roi, cv2.COLOR_BGR2RGB)
+    results = face_detector.process(rgb_roi)
+    if results.detections:
+        return "Front"
+    return "Back"
 
 def mark_stations_and_persons_on_video(video_path, stations, model, output_path=None, frame_skip=1, threshold=150):
     cap = cv2.VideoCapture(video_path)
@@ -90,6 +106,7 @@ def mark_stations_and_persons_on_video(video_path, stations, model, output_path=
 
     frame_count = 0
     station_timers = {station["Station ID"]: None for station in stations}
+    json_output = {}
 
     while cap.isOpened():
         ret, frame = cap.read()
@@ -104,15 +121,17 @@ def mark_stations_and_persons_on_video(video_path, stations, model, output_path=
         person_boxes = detect_persons(frame, model)
         classified_persons = classify_persons(person_boxes)
 
+        frame_data = []
+
         for station in stations:
             table_position = station["Table Position"]
             chair_positions = station["Chair Positions"]
 
-            # Draw hexagon instead of circle
             draw_hexagon(frame, table_position, threshold, color=(255, 255, 255), thickness=2)
 
+            sitting_count = is_person_near_station(classified_persons, table_position, threshold)
             station_occupied = False
-            if is_person_near_station(classified_persons, table_position, threshold):
+            if sitting_count > 0:
                 if station_timers[station["Station ID"]] is None:
                     station_timers[station["Station ID"]] = time.time()
                 elif time.time() - station_timers[station["Station ID"]] > 20:
@@ -134,13 +153,30 @@ def mark_stations_and_persons_on_video(video_path, stations, model, output_path=
             for chair_position in chair_positions:
                 cv2.circle(frame, chair_position, 5, (0, 255, 0), -1)
 
+            frame_data.append({
+                "station": station["Station ID"],
+                "occupants": sitting_count,
+                "occupation Status": station_occupied
+            })
+
+        json_output[f"frame_{frame_count}"] = frame_data
+
         for ((x1, y1, x2, y2), label) in classified_persons:
             person_center = ((x1 + x2) // 2, (y1 + y2) // 2)
             if label == "Sitting Person" and any(
                 is_person_near_station([((x1, y1, x2, y2), label)], station["Table Position"], threshold)
                 for station in stations
             ):
-                color = (0, 0, 255)
+                orientation = detect_face_orientation(frame, (x1, y1, x2, y2))
+                if orientation == "Front":
+                    color = (203, 192, 255)  # Pink
+                    label += " - Front"
+                elif orientation == "Back":
+                    color = (0, 255, 255)  # Yellow
+                    label += " - Back"
+                else:
+                    color = (128, 128, 128)  # Gray
+                    label += " - Unknown"
             elif label == "Standing Person":
                 color = (0, 165, 255)
             else:
@@ -161,6 +197,10 @@ def mark_stations_and_persons_on_video(video_path, stations, model, output_path=
     if output_path and out.isOpened():
         out.release()
         print(f"Output video successfully saved to: {output_path}")
+
+    with open("framewise_station_data.json", "w") as f:
+        json.dump(json_output, f, indent=4)
+
     cv2.destroyAllWindows()
 
 if __name__ == "__main__":

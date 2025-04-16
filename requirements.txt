@@ -6,3 +6,5 @@ torch
 torchvision 
 torchaudio --index-url https://download.pytorch.org/whl/cpu
 opencv-python
+PyQt5
+mediapipe
