@@ -4,6 +4,8 @@ from PIL import Image
 import io
 import logging
 
+# import dine
+
 app = FastAPI()
 
 # Logger setup

@@ -20,6 +20,7 @@ def display_video(video_path):
     # Loop to read and display frames
     while True:
         ret, frame = cap.read()
+        print(frame.shape[1], frame.shape[0])
 
         # Break the loop if no frame is returned (end of video)
         if not ret:
@@ -28,6 +29,7 @@ def display_video(video_path):
 
         # Resize the frame to 60% of its original size
         frame_resized = cv2.resize(frame, None, fx=0.6, fy=0.6, interpolation=cv2.INTER_AREA)
+        print(frame_resized.shape[1], frame_resized.shape[0])
 
         # Display the resized frame
         cv2.imshow("Video Playback (Resized to 60%)", frame_resized)
@@ -43,7 +45,7 @@ def display_video(video_path):
 
 if __name__ == "__main__":
     # Path to the video file
-    video_file_path = "Project Cheena_vala/input videos/calibration_videos/calib_1.mp4"
+    video_file_path = "input videos/calibration_videos/calib_1.mp4"
     
     # Call the function to display the video
     display_video(video_file_path)

@@ -2,6 +2,12 @@ import cv2
 import logging
 import time
 import os
+import requests
+import json
+
+# URL of your FastAPI endpoint
+url = "http://127.0.0.1:8000/upload/"
+
 
 
 # Configure the logger
@@ -35,6 +41,7 @@ def frame_extraction(video_path, frame_skip=20, output_frame_path=None):
     original_frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     original_frame_width = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
+
     # setting the frame couter to 0
     frame_count = 0
 
@@ -56,6 +63,18 @@ def frame_extraction(video_path, frame_skip=20, output_frame_path=None):
             else:
                 logger.info(f"Extracted frame {frame_count} and saved to current directory")
                 cv2.imwrite(frame_name,frame)
+
+            with open(frame_path, "rb") as image_file:
+                files = {"file": (frame_path, image_file, "image/jpeg")}
+                response = requests.post(url, files=files)
+
+
+            if response.ok:
+                logger.info("✅ Response from server:")
+                print(response.json())
+            else:
+                logger.info("❌ Failed to get a valid response:")
+                print(response.status_code, response.text)
         frame_count += 1
     cap.release()
     cv2.destroyAllWindows()

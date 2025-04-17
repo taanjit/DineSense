@@ -143,6 +143,7 @@ if __name__ == "__main__":
     # Process video frames
     frame_count = 0
     for frame in video_reader.read_and_resize():
+        print(frame.shape[1], frame.shape[0])   
         frame_count += 1
 
         # Evaluate every 100 frames
