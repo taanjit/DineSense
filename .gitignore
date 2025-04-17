@@ -175,7 +175,9 @@ cython_debug/
 
 
 
-# Ignore all video files
+# Ignore all video and image files
+*.jpeg
+*.jpg
 *.mp4
 *.mov
 *.avi
