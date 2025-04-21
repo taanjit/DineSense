@@ -1,0 +1,52 @@
+
+occupancy_data = '''
+[
+  {
+    "Station": {
+      "Label": "Station 1",
+      "Occupancy status": " ",
+      "age": 
+      
+    }
+  },
+  {
+    "Station": {
+      "Label": "Station 2",
+      "Occupancy status": " ",
+      "age": 
+      
+    }
+  },
+  {
+    "Station": {
+      "Label": "Station 3",
+      "Occupancy status": " ",
+      "age": 
+      
+    }
+  },
+  {
+     "Station": {
+      "Label": "Station 4",
+      "Occupancy status": " ",
+      "age":  
+    }
+  },
+  {
+      "Station": {
+       "Label": "Station 5",
+      "Occupancy status": " ",
+      "age": 
+    }
+  },
+  {
+      "Station": {
+      "Label": "Station 6",
+      "Occupancy status": " ",
+      "age": 
+      }
+  }
+]
+'''
+
+
