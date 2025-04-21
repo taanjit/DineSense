@@ -123,13 +123,13 @@ class ObjectDetector:
 
 if __name__ == "__main__":
     # Path to the video file
-    video_file_path = "Project Cheena_vala/input videos/calibration_videos/calib_1.mp4"
+    video_file_path = "input videos/calibration_videos/calib_1.mp4"
 
     # Path to the YOLO model weights (should be a .pt file)
     yolo_model_path = "yolo12x.pt"  # Ensure this model supports chairs & tables
 
     # Path to save the CSV file
-    csv_output_path = "Project Cheena_vala/SRC/calibration_file/station_calibration.csv"
+    csv_output_path = "SRC/calibration_file/station_calibration.csv"
 
     # Create an instance of ObjectDetector
     detector = ObjectDetector(video_file_path, yolo_model_path, confidence_threshold=0.1, proximity_threshold=150)

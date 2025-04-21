@@ -20,7 +20,7 @@ def display_video(video_path):
     # Loop to read and display frames
     while True:
         ret, frame = cap.read()
-        print(frame.shape[1], frame.shape[0])
+        # print(frame.shape[1], frame.shape[0])
 
         # Break the loop if no frame is returned (end of video)
         if not ret:

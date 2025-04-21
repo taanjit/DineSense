@@ -89,10 +89,10 @@ def mark_stations_and_persons_on_video(image_file_path, stations, model, output_
         return
 
     height, width, _ = input_frame.shape
-    scale = 0.6
+    scale = 1
 
     
-    frame = resize_frame(input_frame, scale)
+    frame = resize_frame(input_frame, scale=0.6)
     frame_width, frame_height = frame.shape[1], frame.shape[0]
 
     filename = os.path.basename(image_file_path)

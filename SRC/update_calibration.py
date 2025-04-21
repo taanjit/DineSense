@@ -59,10 +59,10 @@ def save_unique_stations_to_csv(stations, output_path):
 
 if __name__ == "__main__":
     # Path to the input station calibration CSV file
-    input_csv_path = "Project Cheena_vala/SRC/calibration_file/station_calibration.csv"
+    input_csv_path = "SRC/calibration_file/station_calibration.csv"
 
     # Path to save the updated station calibration CSV file
-    output_csv_path = "Project Cheena_vala/SRC/calibration_file/updated_station_calibration.csv"
+    output_csv_path = "SRC/calibration_file/updated_station_calibration.csv"
 
     # Read the station calibration data
     stations = read_station_calibration(input_csv_path)
