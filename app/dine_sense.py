@@ -7,6 +7,11 @@ import numpy as np
 from ultralytics import YOLO
 import mediapipe as mp
 
+# Load Yolo model for object detection
+yolo_model_path = "yolo12x.pt"
+
+model = YOLO(yolo_model_path)
+
 threshold = 150  # Distance threshold for detecting persons near stations
 
 # Initialize MediaPipe face detector
@@ -81,7 +86,7 @@ def is_person_near_station(classified_persons, station_center, threshold=150):
                 count += 1
     return count
 
-def mark_stations_and_persons_on_video(image_file_path, stations, model, output_path=None, frame_skip=1, threshold=150):
+def mark_stations_and_persons_on_video(image_file_path, stations,output_path=None, frame_skip=1, threshold=150):
     input_frame = cv2.imread(image_file_path)
 
     if input_frame is None:
@@ -172,7 +177,7 @@ def mark_stations_and_persons_on_video(image_file_path, stations, model, output_
 
     json_output[f"frame_{frame_count}"] = frame_data
 
-    cv2.imshow("Marked Stations and Persons", frame)
+    # cv2.imshow("Marked Stations and Persons", frame)
     pretty_json = json.dumps(json_output, indent=4)
     print(pretty_json)
 
@@ -187,15 +192,16 @@ def mark_stations_and_persons_on_video(image_file_path, stations, model, output_
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
+    return pretty_json
+
 
 if __name__ == "__main__":
-    image_file_path = r"output_frames/frame_00000.jpg"
+    image_file_path = r"output_frames/frame_03140.jpg"
     csv_file_path = "SRC/calibration_file/updated_station_calibration.csv"
     output_video_path = "SRC/calibration_file/marked_video_with_persons_classified.mp4"
-    yolo_model_path = "yolo12x.pt"
-
-    model = YOLO(yolo_model_path)
+    
     unique_stations = read_unique_stations(csv_file_path)
-    mark_stations_and_persons_on_video(image_file_path, unique_stations, model, output_video_path)
+    json_data=mark_stations_and_persons_on_video(image_file_path, unique_stations,output_video_path)
 
     print("✅ Image processing complete.")
+

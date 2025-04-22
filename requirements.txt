@@ -12,3 +12,5 @@ fastapi
 uvicorn 
 pillow
 python-multipart
+mysql-connector
+pymysql
