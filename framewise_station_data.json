@@ -1,34 +1,2444 @@
 {
-    "frame_00000": [
+    "frame_10": [
         {
             "station": "Station #1",
             "occupants": 0,
-            "occupation Status": false
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
         },
         {
             "station": "Station #3",
             "occupants": 0,
-            "occupation Status": false
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
         },
         {
             "station": "Station #4",
             "occupants": 4,
-            "occupation Status": false
+            "occupation_status": false,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 35,
+                    "gender": "Man"
+                },
+                {
+                    "age": 31,
+                    "gender": "Man"
+                },
+                {
+                    "age": 34,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 33.3
         },
         {
             "station": "Station #6",
             "occupants": 1,
-            "occupation Status": false
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": [
+                {}
+            ]
         },
         {
             "station": "Station #9",
             "occupants": 0,
-            "occupation Status": false
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
         },
         {
             "station": "Station #10",
             "occupants": 0,
-            "occupation Status": false
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_20": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": false,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 36,
+                    "gender": "Man"
+                },
+                {
+                    "age": 31,
+                    "gender": "Man"
+                },
+                {
+                    "age": 31,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 32.7
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 1,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 31,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 31.0
+        },
+        {
+            "station": "Station #9",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 1,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 33,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 33.0
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_30": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": false,
+            "male_count": 4,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 37,
+                    "gender": "Man"
+                },
+                {
+                    "age": 31,
+                    "gender": "Man"
+                },
+                {
+                    "age": 31,
+                    "gender": "Man"
+                },
+                {
+                    "age": 32,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 32.8
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 1,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 31,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 31.0
+        },
+        {
+            "station": "Station #9",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": [
+                {}
+            ]
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_40": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": false,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 31,
+                    "gender": "Man"
+                },
+                {
+                    "age": 37,
+                    "gender": "Man"
+                },
+                {
+                    "age": 33,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 33.7
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 1,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 31,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 31.0
+        },
+        {
+            "station": "Station #9",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 1,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 28,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 28.0
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_50": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": false,
+            "male_count": 2,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 37,
+                    "gender": "Man"
+                },
+                {
+                    "age": 31,
+                    "gender": "Man"
+                },
+                {},
+                {}
+            ],
+            "average_age": 34.0
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 1,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 31,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 31.0
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_60": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": false,
+            "male_count": 2,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 35,
+                    "gender": "Man"
+                },
+                {
+                    "age": 31,
+                    "gender": "Man"
+                },
+                {},
+                {}
+            ],
+            "average_age": 33.0
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": [
+                {}
+            ]
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_70": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 3,
+            "occupation_status": false,
+            "male_count": 2,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 38,
+                    "gender": "Man"
+                },
+                {
+                    "age": 33,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 35.5
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 1,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 33,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 33.0
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_80": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 2,
+            "occupation_status": false,
+            "male_count": 2,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 31,
+                    "gender": "Man"
+                },
+                {
+                    "age": 31,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 31.0
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": [
+                {}
+            ]
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_90": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 3,
+            "occupation_status": false,
+            "male_count": 2,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 32,
+                    "gender": "Man"
+                },
+                {
+                    "age": 38,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 35.0
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": [
+                {}
+            ]
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_100": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": false,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 34,
+                    "gender": "Man"
+                },
+                {
+                    "age": 33,
+                    "gender": "Man"
+                },
+                {
+                    "age": 32,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 33.0
+        },
+        {
+            "station": "Station #6",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_110": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 36,
+                    "gender": "Man"
+                },
+                {
+                    "age": 32,
+                    "gender": "Man"
+                },
+                {
+                    "age": 33,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 33.7
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 1,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 32,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 32.0
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_120": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 3,
+            "occupation_status": true,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 36,
+                    "gender": "Man"
+                },
+                {
+                    "age": 31,
+                    "gender": "Man"
+                },
+                {
+                    "age": 32,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 33.0
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 1,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 32,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 32.0
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_130": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 3,
+            "occupation_status": true,
+            "male_count": 2,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 37,
+                    "gender": "Man"
+                },
+                {
+                    "age": 31,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 34.0
+        },
+        {
+            "station": "Station #6",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_140": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 2,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 35,
+                    "gender": "Man"
+                },
+                {
+                    "age": 32,
+                    "gender": "Man"
+                },
+                {},
+                {}
+            ],
+            "average_age": 33.5
+        },
+        {
+            "station": "Station #6",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_150": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 4,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 37,
+                    "gender": "Man"
+                },
+                {
+                    "age": 40,
+                    "gender": "Man"
+                },
+                {
+                    "age": 31,
+                    "gender": "Man"
+                },
+                {
+                    "age": 30,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 34.5
+        },
+        {
+            "station": "Station #6",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_160": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 38,
+                    "gender": "Man"
+                },
+                {
+                    "age": 39,
+                    "gender": "Man"
+                },
+                {
+                    "age": 33,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 36.7
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 1,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 35,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 35.0
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_170": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 4,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 32,
+                    "gender": "Man"
+                },
+                {
+                    "age": 39,
+                    "gender": "Man"
+                },
+                {
+                    "age": 32,
+                    "gender": "Man"
+                },
+                {
+                    "age": 37,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 35.0
+        },
+        {
+            "station": "Station #6",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_180": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 4,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 32,
+                    "gender": "Man"
+                },
+                {
+                    "age": 35,
+                    "gender": "Man"
+                },
+                {
+                    "age": 36,
+                    "gender": "Man"
+                },
+                {
+                    "age": 29,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 33.0
+        },
+        {
+            "station": "Station #6",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_190": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 34,
+                    "gender": "Man"
+                },
+                {
+                    "age": 35,
+                    "gender": "Man"
+                },
+                {
+                    "age": 28,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 32.3
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 1,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 33,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 33.0
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_200": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 3,
+            "occupation_status": true,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 35,
+                    "gender": "Man"
+                },
+                {
+                    "age": 40,
+                    "gender": "Man"
+                },
+                {
+                    "age": 30,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 35.0
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 1,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 33,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 33.0
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_210": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 33,
+                    "gender": "Man"
+                },
+                {
+                    "age": 40,
+                    "gender": "Man"
+                },
+                {
+                    "age": 33,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 35.3
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 1,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 32,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 32.0
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_220": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 32,
+                    "gender": "Man"
+                },
+                {
+                    "age": 39,
+                    "gender": "Man"
+                },
+                {
+                    "age": 32,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 34.3
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": [
+                {}
+            ]
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_230": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 32,
+                    "gender": "Man"
+                },
+                {
+                    "age": 35,
+                    "gender": "Man"
+                },
+                {
+                    "age": 25,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 30.7
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": [
+                {}
+            ]
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_240": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 4,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 31,
+                    "gender": "Man"
+                },
+                {
+                    "age": 40,
+                    "gender": "Man"
+                },
+                {
+                    "age": 34,
+                    "gender": "Man"
+                },
+                {
+                    "age": 32,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 34.2
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": [
+                {}
+            ]
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_250": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 4,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 32,
+                    "gender": "Man"
+                },
+                {
+                    "age": 39,
+                    "gender": "Man"
+                },
+                {
+                    "age": 35,
+                    "gender": "Man"
+                },
+                {
+                    "age": 30,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 34.0
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 1,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 32,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 32.0
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_260": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 32,
+                    "gender": "Man"
+                },
+                {
+                    "age": 42,
+                    "gender": "Man"
+                },
+                {
+                    "age": 33,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 35.7
+        },
+        {
+            "station": "Station #6",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_270": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 35,
+                    "gender": "Man"
+                },
+                {
+                    "age": 41,
+                    "gender": "Man"
+                },
+                {
+                    "age": 29,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 35.0
+        },
+        {
+            "station": "Station #6",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_280": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 4,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 34,
+                    "gender": "Man"
+                },
+                {
+                    "age": 41,
+                    "gender": "Man"
+                },
+                {
+                    "age": 35,
+                    "gender": "Man"
+                },
+                {
+                    "age": 29,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 34.8
+        },
+        {
+            "station": "Station #6",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_290": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 33,
+                    "gender": "Man"
+                },
+                {
+                    "age": 41,
+                    "gender": "Man"
+                },
+                {
+                    "age": 31,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 35.0
+        },
+        {
+            "station": "Station #6",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_300": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 32,
+                    "gender": "Man"
+                },
+                {
+                    "age": 39,
+                    "gender": "Man"
+                },
+                {
+                    "age": 33,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 34.7
+        },
+        {
+            "station": "Station #6",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_310": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 32,
+                    "gender": "Man"
+                },
+                {
+                    "age": 38,
+                    "gender": "Man"
+                },
+                {
+                    "age": 32,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 34.0
+        },
+        {
+            "station": "Station #6",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_320": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 33,
+                    "gender": "Man"
+                },
+                {
+                    "age": 37,
+                    "gender": "Man"
+                },
+                {
+                    "age": 32,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 34.0
+        },
+        {
+            "station": "Station #6",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_330": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 32,
+                    "gender": "Man"
+                },
+                {
+                    "age": 42,
+                    "gender": "Man"
+                },
+                {
+                    "age": 30,
+                    "gender": "Man"
+                },
+                {}
+            ],
+            "average_age": 34.7
+        },
+        {
+            "station": "Station #6",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_340": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 4,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 31,
+                    "gender": "Man"
+                },
+                {
+                    "age": 40,
+                    "gender": "Man"
+                },
+                {
+                    "age": 30,
+                    "gender": "Man"
+                },
+                {
+                    "age": 33,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 33.5
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": [
+                {}
+            ]
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_350": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 4,
+            "occupation_status": true,
+            "male_count": 4,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 31,
+                    "gender": "Man"
+                },
+                {
+                    "age": 43,
+                    "gender": "Man"
+                },
+                {
+                    "age": 31,
+                    "gender": "Man"
+                },
+                {
+                    "age": 29,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 33.5
+        },
+        {
+            "station": "Station #6",
+            "occupants": 1,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": [
+                {}
+            ]
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        }
+    ],
+    "frame_360": [
+        {
+            "station": "Station #1",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #3",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #4",
+            "occupants": 3,
+            "occupation_status": true,
+            "male_count": 3,
+            "female_count": 0,
+            "occupant_details": [
+                {
+                    "age": 34,
+                    "gender": "Man"
+                },
+                {
+                    "age": 42,
+                    "gender": "Man"
+                },
+                {
+                    "age": 32,
+                    "gender": "Man"
+                }
+            ],
+            "average_age": 36.0
+        },
+        {
+            "station": "Station #6",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #9",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
+        },
+        {
+            "station": "Station #10",
+            "occupants": 0,
+            "occupation_status": false,
+            "male_count": 0,
+            "female_count": 0,
+            "occupant_details": []
         }
     ]
 }

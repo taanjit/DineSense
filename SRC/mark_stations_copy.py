@@ -204,7 +204,7 @@ def mark_stations_and_persons_on_video(video_path, stations, model, output_path=
     cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    video_file_path = r"input videos/Video_data/video6.mp4"
+    video_file_path = "input videos/video_data/video6.mp4"
     csv_file_path = "SRC/calibration_file/updated_station_calibration.csv"
     output_video_path = "SRC/calibration_file/marked_video_with_persons_classified.mp4"
     yolo_model_path = "yolo12x.pt"
