@@ -6,7 +6,6 @@ torch
 torchvision 
 torchaudio --index-url https://download.pytorch.org/whl/cpu
 opencv-python
-PyQt5
 mediapipe
 fastapi 
 uvicorn 
@@ -14,3 +13,5 @@ pillow
 python-multipart
 mysql-connector
 pymysql
+dotenv
+streamlit
