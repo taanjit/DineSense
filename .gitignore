@@ -185,3 +185,4 @@ cython_debug/
 
 # model file
 *.pt
+*.pth
