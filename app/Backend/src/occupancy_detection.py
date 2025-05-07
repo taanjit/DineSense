@@ -473,16 +473,18 @@ def display_video(video_path):
     cap.release()
     cv2.destroyAllWindows()
 
-def process_frame(frame, camera_name):
+def process_frame(frame, camera_name, return_data=False):
     """
     Process a video frame for occupancy detection.
     
     Args:
         frame: The video frame to process
         camera_name: Name of the camera (e.g., 'camera_1')
+        return_data: Whether to return the JSON data along with the frame
         
     Returns:
         processed_frame: Frame with bounding boxes and occupancy information
+        frame_data (optional): JSON data with occupancy information
     """
     # Load calibration data for this camera
     calibration_data = load_calibration_data(camera_name)
@@ -544,7 +546,10 @@ def process_frame(frame, camera_name):
     print("\nTable Occupancy JSON Data:")
     print(json_data)
     
-    return processed_frame
+    if return_data:
+        return processed_frame, frame_data
+    else:
+        return processed_frame
     
     return processed_frame
 

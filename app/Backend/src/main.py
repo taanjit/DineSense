@@ -54,6 +54,7 @@ def extract_and_process_frames(video_files):
     while True:
         processed_frames = []
         camera_names = []
+        occupancy_data = {}
         
         # Get frames from each camera
         for camera, cap in caps.items():
@@ -68,16 +69,24 @@ def extract_and_process_frames(video_files):
             
             if ret:
                 # Process frame using occupancy detection
-                processed_frame = process_frame(frame, camera)
+                processed_frame, frame_data = process_frame(frame, camera, return_data=True)
                 processed_frames.append(processed_frame)
                 camera_names.append(camera)
+                
+                # Store occupancy data
+                if frame_data:
+                    table_data = {}
+                    for table in frame_data.get("tables", []):
+                        table_id = f"{camera}@{table['label']}"
+                        table_data[table_id] = {"count": table["occupant_count"]}
+                    occupancy_data[camera] = table_data
                 
                 # Increment frame counter
                 current_frames[camera] += frame_interval
         
         # Display frames in a grid
         if processed_frames:
-            display_frames_grid(processed_frames, camera_names)
+            display_frames_grid(processed_frames, camera_names, occupancy_data)
         
         # Check if user wants to exit
         key = cv2.waitKey(1000)  # Wait for 1 second
@@ -91,8 +100,8 @@ def extract_and_process_frames(video_files):
     cv2.destroyAllWindows()
     print("Video processing completed")
 
-def display_frames_grid(frames, camera_names):
-    """Display frames in a grid."""
+def display_frames_grid(frames, camera_names, occupancy_data=None):
+    """Display frames in a grid with occupancy information below each image."""
     num_frames = len(frames)
     if num_frames == 0:
         return
@@ -116,7 +125,29 @@ def display_frames_grid(frames, camera_names):
         row, col = divmod(i, cols)
         ax = fig.add_subplot(gs[row, col])
         ax.imshow(cv2.cvtColor(frames[i], cv2.COLOR_BGR2RGB))
+        
+        # Set title as camera name
         ax.set_title(f"{camera_names[i]}")
+        
+        # Add occupancy information below the image if available
+        if occupancy_data and camera_names[i] in occupancy_data:
+            camera_data = occupancy_data[camera_names[i]]
+            occupancy_text = []
+            
+            # Extract table information for this camera
+            for table_id, data in camera_data.items():
+                if table_id.startswith(camera_names[i]):
+                    occupancy_text.append(f"{table_id.split('@')[1]}: {data['count']} occupants")
+            
+            # Add the text below the image
+            if occupancy_text:
+                ax.text(0.5, -0.1, '\n'.join(occupancy_text), 
+                        horizontalalignment='center',
+                        verticalalignment='top',
+                        transform=ax.transAxes,
+                        fontsize=10,
+                        bbox=dict(facecolor='white', alpha=0.7))
+        
         ax.axis('off')
     
     plt.tight_layout()
