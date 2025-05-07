@@ -475,7 +475,7 @@ def display_video(video_path):
 
 if __name__ == "__main__":
     # Path to the video directory
-    video_directory = "/Users/dranjitta/Documents/Projects/Trae Projects/DineSense/DineSense/app/Backend/video_input/camera_7/"
+    video_directory = "/Users/dranjitta/Documents/Projects/Trae Projects/DineSense/DineSense/app/Backend/video_input/camera_3/"
     
     # Display the video
     display_video(video_directory)

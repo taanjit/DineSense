@@ -127,7 +127,7 @@ def display_frames_grid(frames, camera_names, occupancy_data=None):
         ax.imshow(cv2.cvtColor(frames[i], cv2.COLOR_BGR2RGB))
         
         # Set title as camera name
-        ax.set_title(f"{camera_names[i]}")
+        ax.set_title(f"{camera_names[i]}", fontsize=12, fontweight='bold')
         
         # Add occupancy information below the image if available
         if occupancy_data and camera_names[i] in occupancy_data:
@@ -137,7 +137,10 @@ def display_frames_grid(frames, camera_names, occupancy_data=None):
             # Extract table information for this camera
             for table_id, data in camera_data.items():
                 if table_id.startswith(camera_names[i]):
-                    occupancy_text.append(f"{table_id.split('@')[1]}: {data['count']} occupants")
+                    table_label = table_id.split('@')[2]
+                    count = data['count']
+                    status = "Empty" if count == 0 else f"{count} occupant{'s' if count > 1 else ''}"
+                    occupancy_text.append(f"Table {table_label}: {status}")
             
             # Add the text below the image
             if occupancy_text:
@@ -146,7 +149,7 @@ def display_frames_grid(frames, camera_names, occupancy_data=None):
                         verticalalignment='top',
                         transform=ax.transAxes,
                         fontsize=10,
-                        bbox=dict(facecolor='white', alpha=0.7))
+                        bbox=dict(facecolor='lightblue', alpha=0.7, boxstyle='round,pad=0.5'))
         
         ax.axis('off')
     
@@ -157,7 +160,7 @@ def display_frames_grid(frames, camera_names, occupancy_data=None):
 
 def main():
     # Define camera list and base directory
-    camera_list = ["camera_1", "camera_3", "camera_6", "camera_7"]
+    camera_list = ["camera_7", "camera_1", "camera_3", "camera_1"]
     base_dir = "/Users/dranjitta/Documents/Projects/Trae Projects/DineSense/DineSense/app/Backend/video_input"
     
     # Find video files
