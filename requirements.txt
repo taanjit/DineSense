@@ -1,0 +1,18 @@
+ultralytics
+torch 
+torchvision 
+torchaudio
+torch 
+torchvision 
+torchaudio --index-url https://download.pytorch.org/whl/cpu
+opencv-python
+mediapipe
+fastapi 
+uvicorn 
+pillow
+python-multipart
+mysql-connector
+pymysql
+dotenv
+streamlit
+matplotlib

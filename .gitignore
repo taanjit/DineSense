@@ -173,6 +173,18 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-# Video files
-.mp4
 
+
+# Ignore all video and image files
+*.jpeg
+*.jpeg
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# model file
+*.pt
+*.pth
+
+*.DS_Store

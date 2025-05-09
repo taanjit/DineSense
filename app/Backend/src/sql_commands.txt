@@ -1,0 +1,34 @@
+sql commands:
+CREATE TABLE seating_layout (
+    station VARCHAR(10) NOT NULL,
+    occupant_count INT NOT NULL,
+    occupied_time DATETIME NULL,
+    unoccupied_time DATETIME NULL,
+    PRIMARY KEY (station)
+);
+INSERT INTO seating_layout (station, occupant_count, occupied_time, unoccupied_time) VALUES
+('T1', 0, NULL, NULL),
+('T2', 0, NULL, NULL),
+('T3', 0, NULL, NULL),
+('T4', 0, NULL, NULL),
+('T5', 0, NULL, NULL),
+('T6', 0, NULL, NULL),
+('T7', 0, NULL, NULL),
+('T8', 0, NULL, NULL),
+('T9', 0, NULL, NULL),
+('T10', 0, NULL, NULL),
+('T11', 0, NULL, NULL),
+('T12', 0, NULL, NULL),
+('T13', 0, NULL, NULL),
+('T14', 0, NULL, NULL),
+('T15', 0, NULL, NULL),
+('T16', 0, NULL, NULL),
+('T17', 0, NULL, NULL),
+('T18', 0, NULL, NULL),
+('T19', 0, NULL, NULL),
+('T20', 0, NULL, NULL),
+('T21', 0, NULL, NULL),
+('T22', 0, NULL, NULL),
+('T23', 0, NULL, NULL);
+
+
