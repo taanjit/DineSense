@@ -3,32 +3,35 @@ import numpy as np
 import os
 from ultralytics import YOLO
 from collections import defaultdict
-
+ 
 # Global variable to store the YOLO models
 yolo_model = None
 yolo_pose_model = None
+custom_plate_model = None  # New global variable for custom plate model
 yolo_loaded = False
 yolo_pose_loaded = False
-
+custom_plate_loaded = False  # New flag for custom plate model
+ 
 def initialize_models():
     """
     Initialize YOLO models for person detection and pose estimation.
+    Also initialize custom model for plate detection.
     This function should be called once at the beginning of the program.
     
     Returns:
         bool: True if models loaded successfully, False otherwise
     """
-    global yolo_model, yolo_pose_model, yolo_loaded, yolo_pose_loaded
+    global yolo_model, yolo_pose_model, custom_plate_model, yolo_loaded, yolo_pose_loaded, custom_plate_loaded
     
-    # Load YOLO model for person detection 
-    try: 
-        # Try to load YOLOv8 model 
-        yolo_model = YOLO("yolo12x.pt")  # Using YOLOv8 nano model for faster processing 
-        yolo_loaded = True 
-        print("YOLOv12 model loaded successfully for person detection") 
-    except Exception as e: 
-        print(f"Error loading YOLO model: {e}") 
-        print("Proceeding without person detection.") 
+    # Load YOLO model for person detection
+    try:
+        # Try to load YOLOv8 model
+        yolo_model = YOLO("yolo12x.pt")  # Using YOLOv8 nano model for faster processing
+        yolo_loaded = True
+        print("YOLOv12 model loaded successfully for person detection")
+    except Exception as e:
+        print(f"Error loading YOLO model: {e}")
+        print("Proceeding without person detection.")
         yolo_loaded = False
     
     # Load YOLO model for pose detection
@@ -42,8 +45,19 @@ def initialize_models():
         print("Proceeding without pose detection.")
         yolo_pose_loaded = False
     
+    # Load custom model for plate detection
+    try:
+        # Replace "custom_plate_model.pt" with the actual path to your custom model
+        custom_plate_model = YOLO("best.pt")  # Using custom model for plate detection
+        custom_plate_loaded = True
+        print("Custom plate detection model loaded successfully")
+    except Exception as e:
+        print(f"Error loading custom plate model: {e}")
+        print("Proceeding without custom plate detection.")
+        custom_plate_loaded = False
+    
     return yolo_loaded
-
+ 
 def initialize_yolo():
     """
     Initialize the YOLO model for person detection.
@@ -53,7 +67,7 @@ def initialize_yolo():
         bool: True if model loaded successfully, False otherwise
     """
     return initialize_models()
-
+ 
 def calculate_distance(point1, point2):
     """
     Calculate Euclidean distance between two points.
@@ -66,13 +80,13 @@ def calculate_distance(point1, point2):
         float: Euclidean distance between the points
     """
     return np.sqrt((point1[0] - point2[0])**2 + (point1[1] - point2[1])**2)
-
+ 
 def detect_persons(frame, calibration_data=None, confidence_threshold=0.05, return_counts=False):
     """
     Detect persons in a frame using YOLO model and mark only sitting persons with blue bounding boxes.
     Use YOLO11n-pose to detect if a person is front-facing based on shoulder positions.
     Map each sitting person to the nearest table from calibration data.
-    Also detect food plates and mark them with orange bounding boxes.
+    Also detect food plates using a custom model and mark them with orange bounding boxes.
     
     Args:
         frame: The input video frame
@@ -82,21 +96,60 @@ def detect_persons(frame, calibration_data=None, confidence_threshold=0.05, retu
         
     Returns:
         If return_counts is False:
-            processed_frame: The frame with sitting person bounding boxes
+            frame: The processed frame with bounding boxes
         If return_counts is True:
-            (processed_frame, table_counts): Tuple of processed frame and dictionary of table counts
+            frame: The processed frame with bounding boxes
+            table_counts: Dictionary with table counts
+            table_occupancy: Dictionary with table occupancy status
+            table_food_served: Dictionary with food served status for each table
     """
-    global yolo_model, yolo_pose_model, yolo_loaded, yolo_pose_loaded
+    global yolo_model, yolo_pose_model, custom_plate_model, yolo_loaded, yolo_pose_loaded, custom_plate_loaded
     
-    # Create a copy of the frame to avoid modifying the original
+    # Create copies of the frame for drawing
     processed_frame = frame.copy()
+    
+    # Initialize dictionaries to store counts and occupancy status
+    table_counts = {}
+    table_occupancy = {}
+    table_food_served = {}  # New dictionary to track food served status
+    table_plate_counts = {}  # New dictionary to track plate counts per table
+    
+    # Initialize all tables with 0 count and False occupancy
+    if calibration_data is not None:
+        for _, row in calibration_data.iterrows():
+            table_name = row['label']
+            table_counts[table_name] = 0
+            table_occupancy[table_name] = False
+            table_food_served[table_name] = False  # Initialize food served status as False
+            table_plate_counts[table_name] = 0  # Initialize plate count as 0
+    
+    # Create a persistent dictionary to track food served status across frames
+    # This needs to be a global variable to persist between function calls
+    global persistent_food_served
+    if 'persistent_food_served' not in globals():
+        persistent_food_served = {}
+    
+    # Initialize all tables with 0 count and False occupancy
+    if calibration_data is not None:
+        for _, row in calibration_data.iterrows():
+            table_name = row['label']
+            table_counts[table_name] = 0
+            table_occupancy[table_name] = False
+            table_plate_counts[table_name] = 0  # Initialize plate count as 0
+            
+            # Initialize food served status from persistent state or as False
+            if table_name in persistent_food_served:
+                table_food_served[table_name] = persistent_food_served[table_name]
+            else:
+                table_food_served[table_name] = False
+                persistent_food_served[table_name] = False
     
     # Check if YOLO model is loaded
     if not yolo_loaded or yolo_model is None:
         # Try to initialize YOLO if not already loaded
         if not initialize_models():
             # Add a message if YOLO model is not available
-            cv2.putText(processed_frame, "YOLO model not available for person detection", 
+            cv2.putText(processed_frame, "YOLO model not available for person detection",
                         (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
             return processed_frame
     
@@ -123,13 +176,20 @@ def detect_persons(frame, calibration_data=None, confidence_threshold=0.05, retu
         pose_results = yolo_pose_model(frame, verbose=False)
     
     try:
-        # Run YOLO detection on the frame for both persons (class 0) and plates (classes 44-51)
-        # First detect persons
+        # Run YOLO detection on the frame for persons (class 0)
         person_results = yolo_model(frame, classes=[0], verbose=False)  # Class 0 is 'person' in COCO dataset
         
-        # Then detect plates (classes 44-51 for different types of plates/dishes)
-        plate_classes = list(range(39,41))  # Classes 44 to 51 inclusive
-        plate_results = yolo_model(frame, classes=plate_classes, verbose=False)
+        # Run detection for plates using custom model instead of YOLO12x
+        plate_results = None
+        if custom_plate_loaded and custom_plate_model is not None:
+            # Use custom model for plate detection - this will detect all classes in the custom model
+            plate_results = custom_plate_model(frame, verbose=False)
+        else:
+            # Fallback to using YOLO12x if custom model is not available
+            plate_classes = list(range(39, 41))  # Original classes 39-40
+            plate_results = yolo_model(frame, classes=plate_classes, verbose=False)
+            cv2.putText(processed_frame, "Using fallback YOLO12x for plate detection",
+                        (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 165, 255), 2)
         
         # Count detected plates
         plate_count = 0
@@ -152,15 +212,51 @@ def detect_persons(frame, calibration_data=None, confidence_threshold=0.05, retu
                     # Get bounding box coordinates
                     x1, y1, x2, y2 = map(int, box.xyxy[0])
                     
+                    # Calculate plate center
+                    plate_center = ((x1 + x2) // 2, (y1 + y2) // 2)
+                    
                     # Draw the plate bounding box in orange
                     cv2.rectangle(processed_frame, (x1, y1), (x2, y2), (0, 165, 255), 2)  # Orange color in BGR
                     
                     # Add label with class ID and confidence
                     label_text = f"Plate-{class_id} ({confidence:.2f})"
-                    cv2.putText(processed_frame, label_text, (x1, y1-10), 
+                    cv2.putText(processed_frame, label_text, (x1, y1-10),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 165, 255), 2)
                     
                     plate_count += 1
+                    
+                    # Map plate to nearest table if calibration data is available
+                    if table_centers:
+                        nearest_table = None
+                        min_distance = float('inf')
+                        
+                        # First check if plate is inside any table bounding box
+                        for i, (tx1, ty1, tx2, ty2) in enumerate(table_boxes):
+                            if (tx1 <= plate_center[0] <= tx2 and ty1 <= plate_center[1] <= ty2):
+                                nearest_table = table_labels[i]
+                                break
+                        
+                        # If not inside any table, find the nearest table
+                        if nearest_table is None:
+                            for i, table_center in enumerate(table_centers):
+                                distance = calculate_distance(plate_center, table_center)
+                                if distance < min_distance:
+                                    min_distance = distance
+                                    nearest_table = table_labels[i]
+                        
+                        # If a nearest table was found, increment its plate count
+                        if nearest_table is not None:
+                            table_plate_counts[nearest_table] += 1
+                            
+                            # Draw a line from plate center to nearest table center
+                            nearest_table_idx = table_labels.index(nearest_table)
+                            cv2.line(processed_frame, plate_center, table_centers[nearest_table_idx],
+                                    (0, 165, 255), 1)  # Orange line
+                            
+                            # Add table assignment text
+                            table_text = f"Table: {nearest_table}"
+                            cv2.putText(processed_frame, table_text, (x1, y1-30),
+                                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 165, 255), 2)
         
         # Process person detection results
         if person_results and len(person_results) > 0:
@@ -227,13 +323,13 @@ def detect_persons(frame, calibration_data=None, confidence_threshold=0.05, retu
                                                 # Right shoulder is keypoint 6 in YOLO pose
                                                 right_shoulder_x = int(kp[6][0])
                                                 right_shoulder_y = int(kp[6][1])
-                                                cv2.circle(processed_frame, (right_shoulder_x, right_shoulder_y), 
+                                                cv2.circle(processed_frame, (right_shoulder_x, right_shoulder_y),
                                                           5, (0, 255, 0), -1)
                                                 
                                                 # Left shoulder is keypoint 5 in YOLO pose
                                                 left_shoulder_x = int(kp[5][0])
                                                 left_shoulder_y = int(kp[5][1])
-                                                cv2.circle(processed_frame, (left_shoulder_x, left_shoulder_y), 
+                                                cv2.circle(processed_frame, (left_shoulder_x, left_shoulder_y),
                                                           5, (0, 255, 0), -1)
                                                 
                                                 # Check if right shoulder x is less than left shoulder x
@@ -247,7 +343,7 @@ def detect_persons(frame, calibration_data=None, confidence_threshold=0.05, retu
                         box_color = (255, 0, 255) if is_front_facing else (255, 0, 0)  # Pink or Blue
                         cv2.rectangle(processed_frame, (x1, y1), (x2, y2), box_color, 2)
                         
-                        # Mark the center of the person with a circle
+                        # Map the center of the person with a circle
                         cv2.circle(processed_frame, person_center, 5, (255, 0, 255), -1)
                         
                         # Find the nearest table if calibration data is available
@@ -283,7 +379,7 @@ def detect_persons(frame, calibration_data=None, confidence_threshold=0.05, retu
                                     nearest_table_idx = table_labels.index(nearest_table)
                                 else:
                                     # No valid tables found (all tables are above the person)
-                                    cv2.putText(processed_frame, "No valid tables", (x1, y1-30), 
+                                    cv2.putText(processed_frame, "No valid tables", (x1, y1-30),
                                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
                             else:
                                 # For non-front-facing persons: Map to nearest table without y-value constraint
@@ -299,17 +395,17 @@ def detect_persons(frame, calibration_data=None, confidence_threshold=0.05, retu
                             # If a nearest table was found, draw the connection and update counts
                             if nearest_table is not None:
                                 # Draw a line from person center to nearest table center
-                                cv2.line(processed_frame, person_center, table_centers[nearest_table_idx], 
+                                cv2.line(processed_frame, person_center, table_centers[nearest_table_idx],
                                         (0, 255, 255), 2)
                                 
                                 # Add label with confidence, front-facing status, and nearest table
                                 facing_text = "Front-Facing" if is_front_facing else "Not Front-Facing"
                                 label_text = f"Person ({confidence:.2f}, {facing_text})"
-                                cv2.putText(processed_frame, label_text, (x1, y1-10), 
+                                cv2.putText(processed_frame, label_text, (x1, y1-10),
                                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, box_color, 2)
                                 
                                 table_text = f"Table: {nearest_table}"
-                                cv2.putText(processed_frame, table_text, (x1, y1-30), 
+                                cv2.putText(processed_frame, table_text, (x1, y1-30),
                                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
                                 
                                 # Increment the count for this table
@@ -318,18 +414,23 @@ def detect_persons(frame, calibration_data=None, confidence_threshold=0.05, retu
                             # Add label with confidence and front-facing status only
                             facing_text = "Front-Facing" if is_front_facing else "Not Front-Facing"
                             label_text = f"Person ({confidence:.2f}, {facing_text})"
-                            cv2.putText(processed_frame, label_text, (x1, y1-10), 
+                            cv2.putText(processed_frame, label_text, (x1, y1-10),
                                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, box_color, 2)
                         
                         sitting_count += 1
             
             # Add total count to the frame
-            cv2.putText(processed_frame, f"Sitting: {sitting_count}, Front-Facing: {front_facing_count}, Plates: {plate_count}", 
+            cv2.putText(processed_frame, f"Sitting: {sitting_count}, Front-Facing: {front_facing_count}, Plates: {plate_count}",
                         (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2)
             
+            # # Add model type information
+            # model_info = "Using: Custom Model" if custom_plate_loaded else "Using: YOLO12x (fallback)"
+            # cv2.putText(processed_frame, f"Plate Detection: {model_info}",
+            #             (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 165, 255), 2)
+            
             # Display table counts on the frame
-            y_offset = 60
-            cv2.putText(processed_frame, "Table Counts:", (10, y_offset), 
+            y_offset = 120
+            cv2.putText(processed_frame, "Table Counts:", (10, y_offset),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
             
             # Draw table bounding boxes and display counts
@@ -347,28 +448,50 @@ def detect_persons(frame, calibration_data=None, confidence_threshold=0.05, retu
                     # Display the table label and count near the table
                     table_center = table_centers[table_idx]
                     count_text = f"{table_label}: {count}"
-                    cv2.putText(processed_frame, count_text, 
-                                (table_center[0] - 20, table_center[1]), 
+                    cv2.putText(processed_frame, count_text,
+                                (table_center[0] - 20, table_center[1]),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
                                 
                 # Also display in the table counts section
                 y_offset += 25
-                cv2.putText(processed_frame, f"{table_label}: {count} persons", (20, y_offset), 
+                cv2.putText(processed_frame, f"{table_label}: {count} persons", (20, y_offset),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
             
             # If no tables have been assigned, show a message
             if not table_counts and table_centers:
                 y_offset += 25
-                cv2.putText(processed_frame, "No persons mapped to tables", (20, y_offset), 
+                cv2.putText(processed_frame, "No persons mapped to tables", (20, y_offset),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
     
     except Exception as e:
         print(f"Error during person detection: {e}")
-        cv2.putText(processed_frame, f"Error in person detection: {str(e)[:50]}", 
+        cv2.putText(processed_frame, f"Error in person detection: {str(e)[:50]}",
                     (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
     
-    # At the end of the function, modify the return statement:
+    # After processing all detections, update occupancy status and food served status
+    for table_name, count in table_counts.items():
+        # Set occupancy to True if at least one person is assigned to the table
+        table_occupancy[table_name] = count > 0
+        
+        # Make sure the table exists in all dictionaries before accessing
+        if table_name not in table_plate_counts:
+            table_plate_counts[table_name] = 0
+        
+        # Update food served status based on the new logic:
+        # 1. If there are people AND plates, set Food_served to True
+        if count > 0 and table_plate_counts[table_name] > 2:
+            table_food_served[table_name] = True
+            persistent_food_served[table_name] = True
+        # 2. If there are no people, reset Food_served to False
+        elif count == 0:
+            table_food_served[table_name] = False
+            persistent_food_served[table_name] = False
+        # 3. Otherwise, maintain the previous state (which is stored in persistent_food_served)
+        else:
+            table_food_served[table_name] = persistent_food_served[table_name]
+    
     if return_counts:
-        return processed_frame, table_counts
+        return processed_frame, table_counts, table_occupancy, table_food_served
     else:
         return processed_frame
+ 

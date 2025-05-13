@@ -32,3 +32,22 @@ INSERT INTO seating_layout (station, occupant_count, occupied_time, unoccupied_t
 ('T23', 0, NULL, NULL);
 
 
+
+ALTER TABLE seating_layout 
+ADD COLUMN food_served BOOLEAN DEFAULT FALSE,
+ADD COLUMN food_served_time DATETIME DEFAULT NULL;
+
+
+
+to see live data in formatted layout:
+watch -n 1 "mysql -u anjit -p'12aug@1986' -h 192.168.3.82 DineSense -e \"
+SELECT 
+  station, 
+  occupant_count, 
+  DATE_FORMAT(occupied_time, '%Y-%m-%dT%H:%i:%s') AS occupied_time, 
+  DATE_FORMAT(unoccupied_time, '%Y-%m-%dT%H:%i:%s') AS unoccupied_time, 
+  food_served, 
+  DATE_FORMAT(food_served_time, '%Y-%m-%dT%H:%i:%s') AS food_served_time 
+FROM seating_layout\" | column -t"
+
+

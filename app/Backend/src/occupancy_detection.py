@@ -5,10 +5,10 @@ import pandas as pd
 import json
 from person_detection import detect_persons, initialize_yolo
 from collections import defaultdict
-
+ 
 # Global dictionary to store calibration data for each camera
 calibration_cache = {}
-
+ 
 def load_calibration_data(camera_name):
     """
     Load calibration data for a specific camera.
@@ -42,73 +42,56 @@ def load_calibration_data(camera_name):
         print(f"Calibration file not found: {calibration_file}")
         calibration_cache[camera_name] = None
         return None
-
+ 
 def detect_occupancy(frame, camera_name):
     """
-    Process a frame to detect occupancy using calibration data and person detection.
+    Detect table occupancy in a frame using person detection.
     
     Args:
         frame: The input video frame
-        camera_name: Name of the camera folder (e.g., 'camera_1')
+        camera_name: The name of the camera
         
     Returns:
-        tuple: (processed_frame, table_status_json)
-            - processed_frame: The frame with bounding boxes drawn
-            - table_status_json: JSON string with table occupancy data
+        frame: The processed frame with bounding boxes
+        json_data: JSON data with table occupancy information
     """
-    # Create a copy of the frame to avoid modifying the original
-    processed_frame = frame.copy()
+    # Load calibration data for the camera
+    calibration_data = load_calibration_data(camera_name)
     
-    # Initialize table status dictionary
-    table_status = {
+    # Draw table bounding boxes
+    if calibration_data is not None:
+        for _, row in calibration_data.iterrows():
+            table_name = row['label']
+            try:
+                x1, y1, x2, y2 = int(row['x1']), int(row['y1']), int(row['x2']), int(row['y2'])
+                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                cv2.putText(frame, table_name, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+            except ValueError as e:
+                print(f"Warning: Invalid coordinate data for table {table_name}: {e}")
+                print(f"Table data: {table_name}")
+                continue  # Skip this table and continue with the next one
+    
+    # Detect persons and get table counts
+    processed_frame, table_counts, table_occupancy, table_food_served = detect_persons(frame, calibration_data, return_counts=True)
+    
+    # Create JSON data
+    json_data = {
         "folder_name": camera_name,
         "tables": []
     }
     
-    # Load calibration data for this camera (will use cached data if available)
-    calibration_data = load_calibration_data(camera_name)
+    for table_name, count in table_counts.items():
+        occupancy = table_occupancy[table_name]
+        food_served = table_food_served[table_name]  # Get food served status
+        
+        table_data = {
+            "table_name": table_name,
+            "occupancy": occupancy,
+            "count": count,
+            "Food_served": food_served  # Add Food_served field to JSON
+        }
+        
+        json_data["tables"].append(table_data)
     
-    if calibration_data is not None:
-        # Draw bounding boxes for each table in the calibration data
-        for _, row in calibration_data.iterrows():
-            # Extract bounding box coordinates
-            x1, y1, x2, y2 = int(row['x1']), int(row['y1']), int(row['x2']), int(row['y2'])
-            label = row['label']
-            confidence = row['confidence']
-            
-            # Draw the bounding box
-            cv2.rectangle(processed_frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-            
-            # Add label and confidence
-            label_text = f"{label} ({confidence:.2f})"
-            cv2.putText(processed_frame, label_text, (x1, y1-10), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-    else:
-        # Add a message if no calibration data is available
-        cv2.putText(processed_frame, f"No calibration data for {camera_name}", (10, 30), 
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
-    
-    # Detect persons in the frame and get the processed frame and table counts
-    processed_frame, table_counts = detect_persons(processed_frame, calibration_data, return_counts=True)
-    
-    # Populate the table status data
-    if calibration_data is not None:
-        for _, row in calibration_data.iterrows():
-            label = row['label']
-            # Extract table number from label (e.g., "camera_7@table#001" -> "001")
-            table_parts = label.split('#')
-            if len(table_parts) > 1:
-                table_number = table_parts[1]
-                # Get count for this table (default to 0 if not found)
-                count = table_counts.get(label, 0)
-                # Add table data to the list
-                table_status["tables"].append({
-                    "table_name": table_number,
-                    "occupancy": count > 0,
-                    "count": count
-                })
-    
-    # Convert to JSON string
-    table_status_json = json.dumps(table_status, indent=2)
-    
-    return processed_frame, table_status_json
+    return processed_frame, json_data
+ 

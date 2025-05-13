@@ -188,3 +188,4 @@ cython_debug/
 *.pth
 
 *.DS_Store
+app/Backend/processed_frames/
