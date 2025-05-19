@@ -10,7 +10,8 @@ def map_table_name(folder_name, table_name):
             "009": "T18",
             "011": "T19",
             "008": "T21",
-            "010": "T22",           
+            "010": "T22",
+            "007": "T15"         
         }
         return mapping.get(table_name)
     elif folder_name == "camera_3":

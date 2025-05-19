@@ -48,7 +48,13 @@ def update_seating_layout(conn, station, occupant_count, is_occupied, table):
         cursor = conn.cursor()
         current_time = datetime.now()
         
-        # Fetch existing data
+        # Debug logging
+        print(f"\nDEBUG - Updating {station}:")
+        print(f"Raw table data: {table}")
+        print(f"Count from JSON: {table['count']}")
+        print(f"Status: {table['status']}")
+        print(f"Food served: {table.get('food_served', False)}")
+        
         cursor.execute("""
             SELECT occupant_count, occupied_time, unoccupied_time, food_served, food_served_time 
             FROM seating_layout 
@@ -58,78 +64,91 @@ def update_seating_layout(conn, station, occupant_count, is_occupied, table):
         
         if result:
             existing_count, existing_occupied_time, existing_unoccupied_time, food_served, food_served_time = result
+            actual_count = table['count']
+            current_food_status = table.get('food_served', False)
             
-            # Check if food was served
-            food_status = table.get('Food_served', False)
-            
-            if is_occupied:
-                if existing_occupied_time is None:
-                    # Table just became occupied
+            # Handle food service status changes
+            if food_served and not current_food_status:  # Food served changing from TRUE to FALSE
+                if table['status'] == 'vacant':
+                    # Only set unoccupied_time if table is vacant
                     query = """
                     UPDATE seating_layout 
-                    SET occupant_count = %s, 
-                        occupied_time = %s, 
-                        unoccupied_time = NULL,
-                        food_served = %s,
-                        food_served_time = %s
+                    SET food_served = FALSE,
+                        unoccupied_time = %s
                     WHERE station = %s
                     """
-                    food_time = current_time if food_status else None
-                    cursor.execute(query, (occupant_count, current_time, food_status, food_time, station))
+                    cursor.execute(query, (current_time, station))
+                    print(f"Table {station} food service ended and vacant - setting unoccupied time")
                 else:
-                    # Table was already occupied
-                    if food_status and not food_served:
-                        # Food just got served
-                        query = """
-                        UPDATE seating_layout 
-                        SET occupant_count = %s,
-                            food_served = TRUE,
-                            food_served_time = %s,
-                            unoccupied_time = NULL
-                        WHERE station = %s
-                        """
-                        cursor.execute(query, (occupant_count, current_time, station))
-                    elif not food_status and food_served:
-                        # Food service ended
-                        query = """
-                        UPDATE seating_layout 
-                        SET occupant_count = %s,
-                            food_served = FALSE,
-                            unoccupied_time = %s
-                        WHERE station = %s
-                        """
-                        cursor.execute(query, (occupant_count, current_time, station))
-                        
-                        # Check if we should add to history
-                        if existing_occupied_time is not None:
-                            # Calculate duration between occupied_time and current time
-                            duration = (current_time - existing_occupied_time).total_seconds() / 60
-                            if duration >= 2:  # 2 minutes threshold
-                                update_table_history(conn, cursor, station, existing_occupied_time, current_time)
-        else:
-            # Insert new record
-            query = """
-            INSERT INTO seating_layout (
-                station, 
-                occupant_count, 
-                occupied_time, 
-                unoccupied_time,
-                food_served,
-                food_served_time
-            )
-            VALUES (%s, %s, %s, NULL, %s, %s)
-            """
-            food_status = table.get('Food_served', False)
-            food_time = current_time if food_status else None
-            cursor.execute(query, (station, occupant_count, current_time if is_occupied else None, 
-                                 food_status, food_time))
+                    # If table is not vacant, set unoccupied_time to NULL
+                    query = """
+                    UPDATE seating_layout 
+                    SET food_served = FALSE,
+                        unoccupied_time = NULL
+                    WHERE station = %s
+                    """
+                    cursor.execute(query, (station,))
+                    print(f"Table {station} food service ended but still occupied - clearing unoccupied time")
+            
+            # Check for status transition from vacant to occupied
+            if table['status'] == 'occupied' and existing_unoccupied_time is not None:
+                # Table was vacant and is now occupied - reset and start new cycle
+                query = """
+                UPDATE seating_layout 
+                SET occupant_count = %s,
+                    occupied_time = %s,
+                    unoccupied_time = NULL,
+                    food_served = FALSE,
+                    food_served_time = NULL
+                WHERE station = %s
+                """
+                cursor.execute(query, (actual_count, current_time, station))
+                print(f"Table {station} transitioned from vacant to occupied")
+            
+            # Handle regular count updates
+            elif actual_count > 0 and existing_occupied_time is None:
+                # First time occupation
+                query = """
+                UPDATE seating_layout 
+                SET occupant_count = %s,
+                    occupied_time = %s
+                WHERE station = %s
+                """
+                cursor.execute(query, (actual_count, current_time, station))
+            
+            elif actual_count > 0:
+                # Just update count
+                query = """
+                UPDATE seating_layout 
+                SET occupant_count = %s
+                WHERE station = %s
+                """
+                cursor.execute(query, (actual_count, station))
+            
+            # Handle food service changes
+            if not food_served and current_food_status:
+                # Food service started
+                query = """
+                UPDATE seating_layout 
+                SET food_served = TRUE,
+                    food_served_time = %s
+                WHERE station = %s
+                """
+                cursor.execute(query, (current_time, station))
+            
+            # Handle transition to vacant
+            elif food_served and not current_food_status and table['status'] == 'vacant':
+                if not existing_unoccupied_time:  # Only set if not already set
+                    query = """
+                    UPDATE seating_layout 
+                    SET food_served = FALSE,
+                        unoccupied_time = %s
+                    WHERE station = %s
+                    """
+                    cursor.execute(query, (current_time, station))
         
         conn.commit()
-        print(f"Successfully updated database for station {station}")
-        if food_status:
-            print(f"Food served status updated for station {station} at {current_time}")
-        elif food_served and not food_status:
-            print(f"Food service ended for station {station} at {current_time}")
+        verify_db_update(conn, station)
 
     except pymysql.Error as err:
         print(f"Database error: {err}")
@@ -170,10 +189,10 @@ def main(folder_list=None):
 
     # Use provided folder list or default
     if folder_list is None:
-        folder_list = ["camera_7", "camera_3"]
+        folder_list = ["camera_7"]
 
     base_dir = "./app/Backend/video_input"
-    frame_skip_rate = 120
+    frame_skip_rate = 10
     output_dir = "./app/Backend/processed_frames"
     os.makedirs(output_dir, exist_ok=True)
 

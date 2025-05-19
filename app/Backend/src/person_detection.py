@@ -114,6 +114,12 @@ def detect_persons(frame, calibration_data=None, confidence_threshold=0.05, retu
     table_food_served = {}  # New dictionary to track food served status
     table_plate_counts = {}  # New dictionary to track plate counts per table
     
+    # Dictionary to track if food has been served to a table (persistent across frames)
+    # This needs to be a global variable to persist across function calls
+    global table_food_served_state
+    if 'table_food_served_state' not in globals():
+        table_food_served_state = {}
+    
     # Initialize all tables with 0 count and False occupancy
     if calibration_data is not None:
         for _, row in calibration_data.iterrows():
@@ -122,27 +128,10 @@ def detect_persons(frame, calibration_data=None, confidence_threshold=0.05, retu
             table_occupancy[table_name] = False
             table_food_served[table_name] = False  # Initialize food served status as False
             table_plate_counts[table_name] = 0  # Initialize plate count as 0
-    
-    # Create a persistent dictionary to track food served status across frames
-    # This needs to be a global variable to persist between function calls
-    global persistent_food_served
-    if 'persistent_food_served' not in globals():
-        persistent_food_served = {}
-    
-    # Initialize all tables with 0 count and False occupancy
-    if calibration_data is not None:
-        for _, row in calibration_data.iterrows():
-            table_name = row['label']
-            table_counts[table_name] = 0
-            table_occupancy[table_name] = False
-            table_plate_counts[table_name] = 0  # Initialize plate count as 0
             
-            # Initialize food served status from persistent state or as False
-            if table_name in persistent_food_served:
-                table_food_served[table_name] = persistent_food_served[table_name]
-            else:
-                table_food_served[table_name] = False
-                persistent_food_served[table_name] = False
+            # Initialize the persistent state if not already present
+            if table_name not in table_food_served_state:
+                table_food_served_state[table_name] = False
     
     # Check if YOLO model is loaded
     if not yolo_loaded or yolo_model is None:
@@ -468,30 +457,44 @@ def detect_persons(frame, calibration_data=None, confidence_threshold=0.05, retu
         cv2.putText(processed_frame, f"Error in person detection: {str(e)[:50]}",
                     (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
     
-    # After processing all detections, update occupancy status and food served status
-    for table_name, count in table_counts.items():
-        # Set occupancy to True if at least one person is assigned to the table
-        table_occupancy[table_name] = count > 0
-        
+    # At the end of the function, modify the return statement:
+    # Update food served status based on occupancy and plate count
+    for table_name in table_counts.keys():
         # Make sure the table exists in all dictionaries before accessing
+        if table_name not in table_occupancy:
+            table_occupancy[table_name] = False
         if table_name not in table_plate_counts:
             table_plate_counts[table_name] = 0
-        
-        # Update food served status based on the new logic:
-        # 1. If there are people AND plates, set Food_served to True
-        if count > 0 and table_plate_counts[table_name] > 2:
-            table_food_served[table_name] = True
-            persistent_food_served[table_name] = True
-        # 2. If there are no people, reset Food_served to False
-        elif count == 0:
+        if table_name not in table_food_served:
             table_food_served[table_name] = False
-            persistent_food_served[table_name] = False
-        # 3. Otherwise, maintain the previous state (which is stored in persistent_food_served)
-        else:
-            table_food_served[table_name] = persistent_food_served[table_name]
+            
+        # Set food served to True if table is occupied and has at least one plate
+        table_food_served[table_name] = table_occupancy[table_name] and table_plate_counts[table_name] > 0
+    
+        # After processing all detections, update occupancy status and food served status
+        for table_name, count in table_counts.items():
+            # Set occupancy to True if at least one person is assigned to the table
+            table_occupancy[table_name] = count > 0
+            
+            # Make sure the table exists in all dictionaries before accessing
+            if table_name not in table_plate_counts:
+                table_plate_counts[table_name] = 0
+            
+            # Check if the condition for food served is met (sitting person count > 0 and plate count > 2)
+            if count > 0 and table_plate_counts[table_name] >= 2:
+                # Set the persistent state to True
+                table_food_served_state[table_name] = True
+            
+            # Reset the persistent state if no persons are at the table
+            if count == 0:
+                table_food_served_state[table_name] = False
+            
+            # Set the current food served status based on the persistent state
+            table_food_served[table_name] = table_food_served_state[table_name]
     
     if return_counts:
         return processed_frame, table_counts, table_occupancy, table_food_served
     else:
         return processed_frame
+ 
  

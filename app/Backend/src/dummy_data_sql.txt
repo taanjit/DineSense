@@ -1,0 +1,73 @@
+-- Cr-- eate and populate dummy_seating_layout with more realistic scenarios
+-- CREATE TABLE IF NOT EXISTS dummy_seating_layout (
+--     station VARCHAR(10) PRIMARY KEY,
+--     occupant_count INT DEFAULT 0,
+--     occupied_time DATETIME DEFAULT NULL,
+--     unoccupied_time DATETIME DEFAULT NULL,
+--     food_served BOOLEAN DEFAULT FALSE,
+--     food_served_time DATETIME DEFAULT NULL
+-- );
+
+-- -- Insert all stations with default empty values
+-- INSERT INTO dummy_seating_layout (station) VALUES 
+-- ('T1'), ('T2'), ('T3'), ('T4'), ('T5'), ('T6'),
+-- ('T7'), ('T8'), ('T9'), ('T10'), ('T11'), ('T12'),
+-- ('T13'), ('T14'), ('T15'), ('T16'), ('T17'), ('T18'),
+-- ('T19'), ('T20'), ('T21'), ('T22'), ('T23');
+
+-- -- Tables that have completed their service cycle (food served -> unoccupied)
+-- UPDATE dummy_seating_layout 
+-- SET occupant_count = 2,
+--     occupied_time = '2025-05-13 16:00:00',
+--     food_served = FALSE,
+--     food_served_time = '2025-05-13 16:15:00',
+--     unoccupied_time = '2025-05-13 16:45:00'
+-- WHERE station = 'T19';
+
+UPDATE dummy_seating_layout 
+SET occupant_count = 2,
+    occupied_time = '2025-05-13 15:30:00',
+    food_served = FALSE,
+    food_served_time = '2025-05-13 15:45:00',
+    unoccupied_time = '2025-05-13 16:15:00'
+WHERE station = 'T5';
+
+-- UPDATE dummy_seating_layout 
+-- SET occupant_count = 3,
+--     occupied_time = '2025-05-13 16:15:00',
+--     food_served = FALSE,
+--     food_served_time = '2025-05-13 16:30:00',
+--     unoccupied_time = '2025-05-13 17:15:00'
+-- WHERE station = 'T8';
+
+-- -- Active tables with food served (no unoccupied time yet)
+-- UPDATE dummy_seating_layout 
+-- SET occupant_count = 4,
+--     occupied_time = '2025-05-13 16:30:00',
+--     food_served = TRUE,
+--     food_served_time = '2025-05-13 16:45:00'
+-- WHERE station = 'T7';
+
+-- UPDATE dummy_seating_layout 
+-- SET occupant_count = 2,
+--     occupied_time = '2025-05-13 16:15:00',
+--     food_served = TRUE,
+--     food_served_time = '2025-05-13 16:25:00'
+-- WHERE station = 'T10';
+
+-- -- Tables with people, waiting for food
+-- UPDATE dummy_seating_layout 
+-- SET occupant_count = 3,
+--     occupied_time = '2025-05-13 16:40:00'
+-- WHERE station = 'T12';
+
+-- UPDATE dummy_seating_layout 
+-- SET occupant_count = 2,
+--     occupied_time = '2025-05-13 16:42:00'
+-- WHERE station = 'T18';
+
+
+
+
+
+-- DROP TABLE IF EXISTS dummy_seating_layout;
