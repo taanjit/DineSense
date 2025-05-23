@@ -8,7 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from typing import Generator, Dict, List
 import time
 import logging
-from occupancy_detection import detect_occupancy
+from occupancy_detection1 import detect_occupancy
 import asyncio
 import threading
 from concurrent.futures import ThreadPoolExecutor
@@ -307,37 +307,46 @@ def run_occupancy_detection(frame, camera_name):
     """Run occupancy detection and update database with results"""
     try:
         processed_frame, json_data = detect_occupancy(frame, camera_name)
+
         output_path = os.path.join(output_dir, f"{camera_name}.png")
         cv2.imwrite(output_path, processed_frame)
-        # logger.info(f"Occupancy Detection status for {camera_name}: {json.dumps(json_data, indent=4)}")
-        logger.info(f"Debug - db_conn status: {bool(db_conn)}, 'tables' in json_data: {'tables' in json_data}")
-        if 'tables' in json_data:
-            logger.info(f"Debug - tables content: {json_data['tables']}")
-                # Store the latest data for this camera
-        latest_occupancy_data[camera_name] = json_data
-        
-        # Update database with occupancy data
-        if db_conn and 'tables' in json_data:
-            for table in json_data['tables']:
-                match = re.search(r'#(\d+)', table['table_name'])
-                if match:
-                    table_number = match.group(1)
-                mapped_station = map_table_name(camera_name, table_number)
-                logger.info(f"Mapped station: {mapped_station}")
-                
-                # Log exact values from JSON before database update
-                logger.info(f"JSON source values for {mapped_station}: count={table['count']}, status={table['status']}, food={table.get('food_served', False)}")
-                
-                if mapped_station:
-                    # Update seating layout with table data
-                    update_seating_layout(db_conn, mapped_station, table['count'], 
-                                       table['occupancy'], table)
-                    # Remove verify_db_update call from here
-                else:
-                    logger.info(f"WARNING: Could not map table '{table['table_name']}'")
-                
+
+        tables = json_data.get("tables", [])
+
+        if db_conn and tables:
+            cursor = db_conn.cursor()
+
+            for table in tables:
+                station = table["table_name"]  # This is T1–T23
+
+                # Use get with fallback to None for optional fields
+                occupied_time = table.get("occupied_time")
+                unoccupied_time = table.get("unoccupied_time")
+                food_served_time = table.get("food_served_time")
+
+                cursor.execute("""
+                    UPDATE seating_layout
+                    SET occupant_count = %s,
+                        occupied_time = %s,
+                        unoccupied_time = %s,
+                        food_served = %s,
+                        food_served_time = %s
+                    WHERE station = %s
+                """, (
+                    table["count"],
+                    occupied_time,
+                    unoccupied_time,
+                    table["food_served"],
+                    food_served_time,
+                    station
+                ))
+
+            db_conn.commit()
+            cursor.close()
+
     except Exception as e:
         logger.error(f"Error in occupancy detection for {camera_name}: {str(e)}")
+
  
 def generate_frames(video_path: str, frame_skip: int = 0) -> Generator[bytes, None, None]:
     global running
